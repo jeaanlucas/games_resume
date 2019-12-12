@@ -146,7 +146,7 @@ class _GameDetailsState extends State<GameDetails> {
                             ),
                           ),
                           Text(
-                            ' / ${_game.ratingTop.toString()}',
+                            ' / 5',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 25.0,

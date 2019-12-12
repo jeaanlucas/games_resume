@@ -94,7 +94,7 @@ class Dlc extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${objeto['rating'].toString()} / ${objeto['rating_top'].toString()}',
+                      '${objeto['rating'].toString()} / 5',
                       style: TextStyle(
                         fontSize: 18.0,
                         color: Colors.lightBlueAccent,
