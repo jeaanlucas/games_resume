@@ -3,45 +3,58 @@ import 'package:games_resume/game_details.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
-class HomePage extends StatelessWidget {
-  List<dynamic> _listaGames;
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  List<dynamic> _listaGames = List();
   String _nextPage;
   String _previousPage;
 
-  Future _carregarListGames() async {
-    _listaGames = await _getGames();
+  @override
+  void initState() {
+    super.initState();
 
-    return _listaGames;
+    _carregarListGames();
   }
 
-  Future<List> _getGames() async {
-    final response = await http.get('https://api.rawg.io/api/games?page_size=10');
-    final json = convert.jsonDecode(response.body);
-    _nextPage = json['next'];
-    _previousPage = json['previous'];
-    return json['results'];
+  void _carregarListGames() async {
+    _makeRequest('https://api.rawg.io/api/games?page_size=10');
   }
 
   void _next() async {
     if (_nextPage == null) {
       return;
     }
-    final response = await http.get(_nextPage);
-    final json = convert.jsonDecode(response.body);
-    _nextPage = json['next'];
-    _previousPage = json['previous'];
-    _listaGames = json['results'];
+
+    _makeRequest(_nextPage);
   }
 
   void _previous() async {
     if (_previousPage == null) {
       return;
     }
-    final response = await http.get(_previousPage);
+
+    _makeRequest(_previousPage);
+  }
+
+  void _makeRequest(String url) async {
+    _listaGames.clear();
+
+    final response = await http.get(url);
     final json = convert.jsonDecode(response.body);
-    _nextPage = json['next'];
-    _previousPage = json['previous'];
-    _listaGames = json['results'];
+    setState(() {
+      _nextPage = json['next'];
+      _previousPage = json['previous'];
+      _listaGames = json['results'];
+    });
+  }
+
+  Future<List<dynamic>> _getListGames() async {
+    return _listaGames;
   }
 
   String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
@@ -63,7 +76,7 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: FutureBuilder(
-        future: _carregarListGames(),
+        future: _getListGames(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return Center(
@@ -88,7 +101,7 @@ class HomePage extends StatelessWidget {
                         Icons.arrow_back,
                         color: Colors.blue,
                       ),
-                      onPressed: () => _next(),
+                      onPressed: () => _previous(),
                     ),
                   ),
                   Container(
@@ -106,7 +119,7 @@ class HomePage extends StatelessWidget {
                         Icons.arrow_forward,
                         color: Colors.blue,
                       ),
-                      onPressed: () => _previous(),
+                      onPressed: () => _next(),
                     ),
                   ),
                 ],
