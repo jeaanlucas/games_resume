@@ -22,7 +22,7 @@ class _GameListState extends State<GameList> {
   }
 
   void _carregarListGames() async {
-    _makeRequest('https://api.rawg.io/api/games?page_size=10');
+    _makeRequest('https://api.rawg.io/api/games?page_size=30');
   }
 
   void _next() async {
