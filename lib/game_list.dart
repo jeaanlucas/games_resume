@@ -3,12 +3,12 @@ import 'package:games_resume/game_details.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
-class HomePage extends StatefulWidget {
+class GameList extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _GameListState createState() => _GameListState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _GameListState extends State<GameList> {
 
   List<dynamic> _listaGames = List();
   String _nextPage;

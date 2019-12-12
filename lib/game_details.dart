@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:games_resume/dlc.dart';
 import 'package:games_resume/game_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
@@ -32,6 +33,17 @@ class _GameDetailsState extends State<GameDetails> {
     _game = GameModel.fromJson(json);
 
     return _game;
+  }
+
+  void _showDlcs() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Dlc(
+          id: widget.id,
+        ),
+      ),
+    );
   }
 
   @override
@@ -141,6 +153,36 @@ class _GameDetailsState extends State<GameDetails> {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: 10,
+                      ),
+                      width: width * 0.11,
+                      height: heigth * 0.025,
+                      decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(
+                          8.0,
+                        ),
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          child: Center(
+                            child: Text(
+                              'DLC\'S',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0,
+                                letterSpacing: 1.0,
+                              ),
+                            ),
+                          ),
+                          onTap: _showDlcs,
+                        ),
                       ),
                     ),
                   ],

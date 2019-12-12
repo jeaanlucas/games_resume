@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:games_resume/home_page.dart';
+import 'package:games_resume/game_list.dart';
 import 'package:games_resume/login.dart';
 
 void main() => runApp(MyApp());

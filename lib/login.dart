@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:games_resume/home_page.dart';
+import 'package:games_resume/game_list.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -19,7 +19,7 @@ class _LoginState extends State<Login> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => HomePage(),
+          builder: (context) => GameList(),
         ),
       );
     }
