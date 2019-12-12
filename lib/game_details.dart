@@ -26,12 +26,14 @@ class _GameDetailsState extends State<GameDetails> {
     _carregarInfoGame();
   }
 
-  Future<GameModel> _carregarInfoGame() async {
+  void _carregarInfoGame() async {
     final response = await http.get('https://api.rawg.io/api/games/${widget.id}');
     final json = convert.jsonDecode(response.body);
     _game = GameModel.fromJson(json);
+  }
 
-    return GameModel.fromJson(json);
+  Future<GameModel> _getGame() async {
+    return _game;
   }
 
   @override
@@ -62,7 +64,7 @@ class _GameDetailsState extends State<GameDetails> {
         ),
       ),
       body: FutureBuilder(
-        future: _carregarInfoGame(),
+        future: _getGame(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return Center(
