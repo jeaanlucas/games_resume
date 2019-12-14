@@ -12,7 +12,8 @@ class Dlc extends StatelessWidget {
   List<dynamic> _listaDlc = List();
 
   Future<List<dynamic>> _carregarDlc() async {
-    final response = await http.get('https://api.rawg.io/api/games/${this.id}/additions');
+    final response =
+        await http.get('https://api.rawg.io/api/games/${this.id}/additions');
     final json = convert.jsonDecode(response.body);
     _listaDlc = json['results'];
 
@@ -64,45 +65,58 @@ class Dlc extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               final objeto = _listaDlc[index];
 
-              return ListTile(
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'DLC: ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 23.0,
+              return objeto != null
+                  ? ListTile(
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'DLC: ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 23.0,
+                            ),
+                          ),
+                          Text(
+                            capitalize(objeto['name']),
+                            style: TextStyle(
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Text(
-                      capitalize(objeto['name']),
-                      style: TextStyle(
-                        fontSize: 20.0,
+                      subtitle: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'Score: ',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.lightBlueAccent,
+                            ),
+                          ),
+                          Text(
+                            '${objeto['rating'].toString()} / 5',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.lightBlueAccent,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                subtitle: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Score: ',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.lightBlueAccent,
+                    )
+                  : Center(
+                      child: Container(
+                        child: Text(
+                          'O jogo não tem dlc!',
+                          style: TextStyle(
+                            fontSize: 50.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.redAccent,
+                          ),
+                        ),
                       ),
-                    ),
-                    Text(
-                      '${objeto['rating'].toString()} / 5',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.lightBlueAccent,
-                      ),
-                    ),
-                  ],
-                ),
-              );
+                    );
             },
           );
         },

@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
           key: _formKey,
           child: Container(
             width: width * 0.9,
-            height: heigth * 0.35,
+            height: heigth * 0.45,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8.0),
